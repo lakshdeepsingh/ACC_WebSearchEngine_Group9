@@ -320,13 +320,13 @@ public class SearchServlet extends HttpServlet {
 		while( (str = br.readLine()) != null )
 		{
 		 urlList.add(str);
-		 //pw.println(urlList.get(j) + "<BR>");
 		 j++;
-		 //pw.println(str + "<BR>");
 		}
 		
 		
 		// CODE FOR GENERATING URLS FOLDER ON DESKTOP. U CAN PLACE IT IN A FILTER.
+		
+		
 //for(int i = 0; i < urlList.size(); i++) {
 //        	
 //        	try {
@@ -348,6 +348,8 @@ public class SearchServlet extends HttpServlet {
 //        	
 //        
 //        }
+		
+		
 
 		String input = request.getParameter("search_text");
 		pw.println(input);
