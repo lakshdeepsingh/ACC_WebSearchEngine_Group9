@@ -50,7 +50,7 @@ public class SearchServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    // get strings method %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    // This method removes stop words such as I, me, myself etc from the input string.
     
     
     public static String[] getKeywords(String inputStr) throws IOException 
@@ -81,7 +81,9 @@ public class SearchServlet extends HttpServlet {
 	}
     
     
-    // INDEXING IN HASHMAP
+    /* INDEXING IN HASHMAP. This method indexed the urls from the file websites.txt into 
+       a hashmap and returns the hashmap with indexed urls. 	*/
+     
     
     public static HashMap<Integer,String> indexURLS() throws IOException 
 	{	
@@ -101,7 +103,7 @@ public class SearchServlet extends HttpServlet {
     
     
     // METHOD FOR GENERATING TST
-    
+    // This method generates the TST for each file in the folder 'urls'.
     
     public static TST<Integer> getTST(String finalPath) 
 	{	
@@ -140,20 +142,14 @@ public class SearchServlet extends HttpServlet {
 	        }	
         }
         
-//        for (String key : tst.keys()) {
-//            System.out.println(key + " " + tst.get(key));
-//        }
-        
 		return tst;
 	}
     
     
     
-    /**
-	 * This method is responsible to find the the occurrence of the keywords in each text file
-	 * and get the count
-	 * @param keyWords
-	 * @return
+    /*
+	   This method is responsible to find the the occurrence of the keywords in each text file
+	   and get the count
 	 */
 	public static HashMap<Integer, Integer> getFreqList(String[] keyWords){
 		
@@ -188,11 +184,6 @@ public class SearchServlet extends HttpServlet {
 			
 	        TST<Integer> tst = new TST<Integer>();
 	        tst = getTST(finalPath);
-	        //System.out.println(tst);
-	        
-//	        for (String key : tst.keys()) {
-//	        	System.out.println(key + " " + tst.get(key));
-//	        }
 	        
 	        int counter = 0;
 	        
@@ -225,10 +216,8 @@ public class SearchServlet extends HttpServlet {
 	}
 	
 	
-	/**
-	 * This method is used to store the frequency list hashmap used for Page Ranking
-	 * @param freqList
-	 * @param keyWords
+	/*
+	  This method is used to store the frequency list hashmap used for Page Ranking
 	 */
 	public static void storeHashMap(HashMap<Integer, Integer> freqList, String[] keyWords) {
 
@@ -263,10 +252,8 @@ public class SearchServlet extends HttpServlet {
 	}
 	
 	
-	/**
-	 * This method is used to retrieve the frequency list hashmap used for Page Ranking
-	 * @param keyWords
-	 * @return
+	/*
+	 This method is used to retrieve the frequency list hashmap used for Page Ranking
 	 */
 	public static HashMap<Integer,Integer> retreiveHashMap(String[] keyWords) {
 		
@@ -324,30 +311,30 @@ public class SearchServlet extends HttpServlet {
 		}
 		
 		
-		// CODE FOR GENERATING URLS FOLDER ON DESKTOP. U CAN PLACE IT IN A FILTER.
+		// CODE FOR GENERATING URLS FOLDER ON DESKTOP. JSOUP HAS BEEN USED HERE IN THIS CODE.
 		
 		
-//for(int i = 0; i < urlList.size(); i++) {
-//        	
-//        	try {
-//        		
-//        		org.jsoup.nodes.Document doc = Jsoup.connect(urlList.get(i)).get();
-//        		String text = doc.text();
-//            	String FilePath = "C:\\Users\\mani\\Desktop\\urls\\" + (i)+".txt" ;
-//            	PrintWriter out = new PrintWriter(FilePath);
-//        		out.println(urlList.get(i));
-//            	out.println(text);
-//        		pw.println(urlList.get(i));
-//        		out.close();
-//        		
-//        		
-//        	}catch(Exception e){
-//        		
-//        		pw.println("Exception, Cannot be converted to text: "+ urlList.get(i));
-//        	}
-//        	
-//        
-//        }
+for(int i = 0; i < urlList.size(); i++) {
+        	
+        	try {
+        		
+        		org.jsoup.nodes.Document doc = Jsoup.connect(urlList.get(i)).get();
+        		String text = doc.text();
+            	String FilePath = "C:\\Users\\mani\\Desktop\\urls\\" + (i)+".txt" ;
+            	PrintWriter out = new PrintWriter(FilePath);
+        		out.println(urlList.get(i));
+            	out.println(text);
+        		pw.println(urlList.get(i));
+        		out.close();
+        		
+        		
+        	}catch(Exception e){
+        		
+        		pw.println("Exception, Cannot be converted to text: "+ urlList.get(i));
+        	}
+        	
+        
+        }
 		
 		
 
@@ -396,8 +383,8 @@ if (fileExist == true){
 			HashMap<Integer,Integer> freqList = new HashMap<Integer,Integer>();
 			freqList = retreiveHashMap(search_keywords);
 			
-			System.out.println("Top Ten Search Results for \""+ input +"\" are:\n");
-			String desc = "Top Ten Search Results for \""+ input +"\" are:\n";
+			System.out.println("Top 10 Search Results for \""+ input +"\" are:\n");
+			String desc = "Top 10 Search Results for \""+ input +"\" are:\n";
 			request.setAttribute("description", desc);
 			int x = 0;
 			for (HashMap.Entry<Integer, Integer> entry : freqList.entrySet()) {
@@ -430,9 +417,11 @@ if (fileExist == true){
 			
 			storeHashMap(freqList, search_keywords);
 					
-			System.out.println("Top Ten Search Results for \""+ input +"\" are:\n");
+			System.out.println("Top 10 Search Results for \""+ input +"\" are:\n");
 			int x = 0;
 			
+			String desc = "Top 10 Search Results for \""+ input +"\" are:\n";
+			request.setAttribute("description", desc);
 			
 			for (HashMap.Entry<Integer, Integer> entry : freqList.entrySet()) {
 				

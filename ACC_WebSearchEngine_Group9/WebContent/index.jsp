@@ -17,12 +17,7 @@
 <form name="search_form" action="SearchServlet" method="post">
 <input type="text" size="100" name="search_text" value="" placeholder="ENTER CONTENT TO BE SEARCHED">
 <br><br><button class="btn" type="submit"></button>
-
-<!-- <input type="submit" value="SEARCH"> -->
-
-
 </form>
-
 <br><br>
 <p align="center" style="overflow: visible">
 <span style="color:white">${description}</span><br><br>
